@@ -1,9 +1,9 @@
 package starting.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 
 import starting.controller.MouseHandler;
 import starting.controller.ResetController;
+import starting.controller.SelectNodeController;
+import starting.controller.SwapEdgeController;
+import starting.controller.UnselectAllController;
 import starting.model.Model;
 
 import javax.swing.GroupLayout;
@@ -19,13 +22,16 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class TrianglePuzzleApp extends JFrame {
 
 	private JPanel contentPane;
 	Model model;
 	TrianglePuzzleDrawer panel;
 	
-	public TrianglePuzzleDrawer getPanel() { return panel; }
+	public TrianglePuzzleDrawer getPanel() {
+		return panel;
+	}
 
 	/**
 	 * Create the frame.
@@ -36,34 +42,48 @@ public class TrianglePuzzleApp extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 646, 479);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(5,  5, 5, 5));
 		setContentPane(contentPane);
 		
 		panel = new TrianglePuzzleDrawer(model);
-		
-		// connects mouse events...
 		panel.addMouseListener(new MouseHandler(model, this));
-		
+		panel.addMouseListener(new MouseAdapter() {
+
+			public void mousePressed(MouseEvent me){
+				new SelectNodeController(model, TrianglePuzzleApp.this);
+				
+			}
+		});
+
 		JButton btnSwap = new JButton("Swap Edges");
+		btnSwap.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new SwapEdgeController(model, TrianglePuzzleApp.this).process();
+			}
+		});
 		
 		JButton btnUnselectAll = new JButton("Unselect All");
+		btnUnselectAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new UnselectAllController(model, TrianglePuzzleApp.this).process();
+			}
+		});
 		
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new ResetController(model, TrianglePuzzleApp.this).process();
 			}
 		});
-		
+
 		JLabel lblMoves = new JLabel("Moves:");
-		
 		JLabel lblScore = new JLabel("Score:");
-		
 		JLabel playerMovesLabel = new JLabel("0");
-		
 		JLabel playerScoreLabel = new JLabel("0");
+
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

@@ -10,8 +10,8 @@ public class MouseHandler extends MouseAdapter {
 	TrianglePuzzleApp app;
 	Model model;
 	
-	public MouseHandler(Model m, TrianglePuzzleApp app) {
-		this.model = m;
+	public MouseHandler(Model model, TrianglePuzzleApp app) {
+		this.model = model; 
 		this.app = app;
 	}
 	
@@ -19,5 +19,4 @@ public class MouseHandler extends MouseAdapter {
     public void mousePressed(MouseEvent e) {
 		System.out.println("You pressed on " + e.getPoint());
 	}
-	
 }

@@ -1,43 +1,22 @@
 package starting.model;
 import java.awt.Color;
-import java.util.ArrayList;
 
 public class Edge {
 	Color color;
-	Edge edge;
-	boolean isSelected;
-	int position;
-	Triangle triangle;
+	int edgeID;
+	Node a,b;
+	boolean isSelected;	
 	
-	public Edge(int position, Color color) {
-		this.isSelected = false;
-		this.position = position;
+	/*
+	 * Edge object contains:
+	 * edgeId, integer from  0-9 
+	 * color, Color object out of R,B,G 
+	 * Node a, and node b each of the selectable boxes
+	 */
+	public Edge(int edgeID, Color color, Node a, Node b) {
+		this.edgeID = edgeID;
 		this.color = color;
+		this.a = a;
+		this.b = b;
 	}
-
-	public boolean isSelected() {
-		return this.isSelected;
-	}
-	
-	public void setSelected() {
-		this.isSelected = true;
-	}
-	
-	public void swapColor(Color color) {
-		this.color = color;
-	}
-	
-	public Color getColor() {
-		return this.color;
-	}
-	
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	
-	public int getEdgeNum() {
-		return this.position;
-	}
-	
-
 }
