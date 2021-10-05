@@ -1,15 +1,14 @@
 package starting.model;
 
 public class Coordinate {
-    public final int col;
-    public final int row;
+	public int row, col;
 
-    public Coordinate(int col, int row){
-        this.col = col;
-        this.row = row;
+    public Coordinate(int row, int col){
+    	this.row = row;
+    	this.col = col;
     }
 
     public String toString(){
-        return "(" + col + "," + row + ")";
+        return "(" + row + "," + col + ")";
     }
 }

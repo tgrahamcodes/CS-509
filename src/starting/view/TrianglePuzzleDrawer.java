@@ -1,5 +1,8 @@
 package starting.view;
 
+import starting.model.Coordinate;
+import starting.model.Edge;
+
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -19,9 +22,7 @@ public class TrianglePuzzleDrawer extends JPanel {
 	int rowNumber;
 	int colNumber;
 	TrianglePuzzle puzzle;
-	Node obj;
 	Node selectedNode;
-	ArrayList<Triangle> triangles = new ArrayList<Triangle>();
 	
 	/** 
 	 * Create the panel.
@@ -30,10 +31,19 @@ public class TrianglePuzzleDrawer extends JPanel {
 		this.model = model;
 	}
 	
-	public Triangle computeTriangle(Node a, Node b, Node c) {
-		Triangle tri = new Triangle(a, b, c);
-		triangles.add(tri);
-		return tri;
+	public Rectangle computeRectangle(Node n) {
+		int boxSize = 10;
+		int offset = 2;
+		
+		int col = n.getCol();
+		int row = n.getRow();
+		
+		Rectangle rect = new Rectangle(col*boxSize, row*boxSize, 10*(boxSize-2*offset), 10*(boxSize-2*offset));
+		return rect;
+	}
+	
+	public Coordinate pointToCoordinate(Point p) {
+		return new Coordinate(p.x/10, p.y/10);
 	}
 
 	@Override
@@ -46,8 +56,7 @@ public class TrianglePuzzleDrawer extends JPanel {
 		}
 
 		// do the math and figure out WHERE to draw all the boxes (nodes) lines (edges)
-
-
+		
 		// DRAW ENTIRE PUZZLE HERE...
 		for (rowNumber=0; rowNumber < 3; rowNumber++){
 			for(colNumber=0; colNumber < 5; colNumber++){
@@ -171,9 +180,22 @@ public class TrianglePuzzleDrawer extends JPanel {
 					g2d.fillRect(345, 195, 10, 10);
 					g2d.drawRect(395, 295, 10, 10);
 					g2d.fillRect(395, 295, 10, 10);
-
+					}
 				}
 			}
+		Node selectedNode = model.getSelectedNode();
+		TrianglePuzzle puzzle = model.getPuzzle();
+		for (Node n: puzzle) {
+			if (n.equals(selectedNode)) {
+				g.setColor(Color.yellow);
+			}
+			else{
+				g.setColor(Color.gray);
+			}
+			
+			Rectangle r = computeRectangle(n);
+			g.fillRect(r.x, r.y, 10, 10);
+			
 		}
 	}
 }

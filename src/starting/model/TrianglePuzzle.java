@@ -1,25 +1,28 @@
 package starting.model;
 
-public class TrianglePuzzle {
+import java.util.ArrayList;
+import java.util.Iterator;
 
-	int rowNumber = 1;
-    int colNumber = 1;
-    int i = 0;
-    int score = 0;
-    int moves = 0;
-    final int triangleNum = 6;
-    boolean isWinner;
-    
-    public TrianglePuzzle(){
+public class TrianglePuzzle implements Iterable<Node>{
+	
+	ArrayList<Node> nodes = new ArrayList<>();
 
+	public final int numCols = 3;
+	public final int numRows = 3;
+    
+    public TrianglePuzzle() {
     }
     
-    public boolean isWinner() {
-    	return isWinner;
+    public void add(Node n, int row, int col) {
+    	n.setCol(col);
+    	n.setRow(row);
+    	nodes.add(n);
     }
+
+	@Override
+	public Iterator<Node> iterator() {
+		return nodes.iterator();
+	}
     
-    public boolean setWinner() {
-    	isWinner = true;
-    	return isWinner;
-    }
+    
 }

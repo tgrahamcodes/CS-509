@@ -1,7 +1,12 @@
 package starting.controller;
 
-import starting.model.*;
-import starting.view.*;
+import java.awt.Point;
+
+import starting.model.Coordinate;
+import starting.model.Model;
+import starting.model.TrianglePuzzle;
+import starting.view.TrianglePuzzleApp;
+import starting.model.Node;
 
 public class SelectNodeController {
 	
@@ -12,4 +17,18 @@ public class SelectNodeController {
         this.model = model;
         this.app = app;
     }
+
+	public void process(Point point) {
+		Coordinate c = app.getPanel().pointToCoordinate(point);
+		TrianglePuzzle puzzle = model.getPuzzle();
+		
+		System.out.println(c);
+		for (Node n: puzzle) {
+			if (n.contains(c)) {
+				model.clearSelectedNode();
+				model.setSelectedNode(n);
+				app.repaint();
+			}
+		}
+	}
 }

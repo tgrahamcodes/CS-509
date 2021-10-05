@@ -48,9 +48,10 @@ public class TrianglePuzzleApp extends JFrame {
 		panel = new TrianglePuzzleDrawer(model);
 		panel.addMouseListener(new MouseHandler(model, this));
 		panel.addMouseListener(new MouseAdapter() {
-
+			
+			@Override
 			public void mousePressed(MouseEvent me){
-				new SelectNodeController(model, TrianglePuzzleApp.this);
+				new SelectNodeController(model, TrianglePuzzleApp.this).process(me.getPoint());
 				
 			}
 		});

@@ -1,11 +1,11 @@
 package starting.model;
 
 public class Node {
-	final int idNumber;
+	public int row;
+	public int col;
 	boolean selected = false;
 
-	public Node(int idNumber) {
-		this.idNumber = idNumber;
+	public Node() {
 		this.selected = false;
 	}
 	
@@ -17,8 +17,28 @@ public class Node {
 		this.selected = true;
 	}
 	
-	public int getIdNumber() {
-		return this.idNumber;
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
+
+	public boolean contains(Coordinate c) {
+		if (c.col >= col && c.col <= col + 10 && c.row >= row && c.row < row + 10) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public int getCol() {
+		return this.col;
+	}
+	public int getRow() {
+		return this.row;
 	}
 }
 	

@@ -5,10 +5,11 @@ public class Model {
 	int score;
 	int numMoves;
 	boolean isComplete;
+	Node selectedNode;
 	
 	public Model() {
 		puzzle = new TrianglePuzzle();
-		this.score = puzzle.score;
+		// puzzle.add(n);
 	}
 	
 	public int computeScore() {
@@ -26,5 +27,21 @@ public class Model {
 	
 	public void resetPuzzle() {
 		this.puzzle = new TrianglePuzzle();
+	}
+	
+	public TrianglePuzzle getPuzzle() {
+		return this.puzzle;
+	}
+	
+	public void setSelectedNode(Node n) {
+		this.selectedNode = n;
+	}
+	
+	public Node getSelectedNode() {
+		return this.selectedNode;
+	}
+	
+	public void clearSelectedNode() {
+		this.selectedNode = null;
 	}
 }
